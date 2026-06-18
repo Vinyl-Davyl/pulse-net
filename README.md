@@ -1,8 +1,8 @@
-# Pulse-Net
+# pulse-net
 
 pulse-net media sharing API
 
-## Stack
+## stack
 
 | Layer    | Technology                    |
 | -------- | ----------------------------- |
@@ -13,7 +13,7 @@ pulse-net media sharing API
 | Media    | ImageKit                      |
 | Client   | Streamlit (`frontend.py`)     |
 
-## Setup
+## setup
 
 ```bash
 uv venv && source .venv/bin/activate
@@ -21,7 +21,7 @@ uv sync --extra dev
 cp .env.example .env   # fill in values
 ```
 
-### Environment
+### environment
 
 | Variable               | Description                   |
 | ---------------------- | ----------------------------- |
@@ -31,7 +31,7 @@ cp .env.example .env   # fill in values
 | `IMAGEKIT_URL`         | ImageKit URL endpoint         |
 | `DATABASE_URL`         | Optional. Defaults to SQLite  |
 
-## Run
+## run
 
 ```bash
 # API
@@ -52,7 +52,7 @@ uv run streamlit run frontend.py
 | GET    | `/feed?limit=&offset=` | Bearer | Paginated feed                    |
 | DELETE | `/posts/{post_id}`     | Bearer | Delete own post (+ ImageKit file) |
 
-## Database migrations
+## database migrations
 
 ```bash
 # PostgreSQL (via docker-compose)
@@ -62,7 +62,7 @@ export DATABASE_URL=postgresql+asyncpg://pulse:pulse@localhost:5432/pulsenet
 uv run alembic upgrade head
 ```
 
-## Production notes
+## production notes
 
 - Set `DATABASE_URL` to PostgreSQL and run Alembic migrations
 - Disable Uvicorn `--reload`; run multiple workers behind a reverse proxy
