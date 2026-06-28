@@ -9,6 +9,23 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U pulse -d pulsenet"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  api:
+    build: . # build from Dockerfile in current directory
+    ports:
+      - "8000:8000" # Mac localhost:8000 → API container
+    env_file:
+      - .env # load JWT_SECRET, ImageKit keys, etc.
+    environment:
+      DATABASE_URL: postgresql+asyncpg://pulse:pulse@db:5432/pulsenet
+    depends_on:
+      db:
+        condition: service_healthy # wait until Postgres passes healthcheck
 
 volumes:
   postgres_data:
